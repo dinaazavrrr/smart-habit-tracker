@@ -1,0 +1,26 @@
+<div class="habit-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin-top: 0; font-size: 1.3em;">
+            <%= habit.name %> 
+            <small style="color: grey; font-size: 0.6em; font-weight: normal;">(<%= habit.category %>)</small>
+        </h2>
+        <a href="/habits/<%= habit.id %>/edit" style="text-decoration: none; font-size: 1.2em; color: #7f8c8d;">⚙️</a>
+    </div>
+
+    <p style="margin: 10px 0;">
+        Складність: <b><%= habit.difficulty %></b> | 
+        <span class="streak">🔥 Streak: <%= habit.currentStreak %></span>
+    </p>
+    
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <form action="/habits/<%= habit.id %>/check" method="POST" style="display: inline;">
+            <input type="hidden" name="status" value="done">
+            <button type="submit" class="btn-action" style="background: #e8f5e9; color: green; border: 1px solid green;">✅ Виконано</button>
+        </form>
+
+        <form action="/habits/<%= habit.id %>/check" method="POST" style="display: inline;">
+            <input type="hidden" name="status" value="missed">
+            <button type="submit" class="btn-action" style="background: #ffebee; color: red; border: 1px solid red;">❌ Пропущено</button>
+        </form>
+    </div>
+</div>

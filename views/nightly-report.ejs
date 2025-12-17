@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Звіт Планувальника</title>
+    <style>
+        body { font-family: monospace; background: #222; color: #0f0; padding: 20px; }
+        .log { margin-bottom: 5px; }
+        a { color: white; text-decoration: underline; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>⚙️ System Scheduler Report (23:59)</h1>
+    <hr>
+    
+    <% logs.forEach(function(log) { %>
+        <div class="log"><%= log %></div>
+    <% }); %>
+
+    <br><br>
+    <a href="/">⬅ Назад на головну</a>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування звички</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { cursor: pointer; border-radius: 4px; padding: 10px 20px; border: none; color: white; width: 100%; margin-top: 10px; }
+        .btn-save { background: #4CAF50; }
+        .btn-delete { background: #ff4444; margin-top: 30px; } /* Червона кнопка */
+        .btn-cancel { background: #aaa; text-decoration: none; display: inline-block; padding: 10px 20px; border-radius: 4px; color: white; text-align: center; width: 100%; box-sizing: border-box; margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <h1>✏️ Редагування звички</h1>
+    
+    <div class="card">
+        <form action="/habits/<%= habit.id %>/edit" method="POST">
+            <label>Назва звички:</label>
+            <input type="text" name="name" value="<%= habit.name %>" required>
+
+            <label>Складність (Поточна: <%= habit.difficulty %>):</label>
+            <select name="difficulty">
+                <option value="1" <%= habit.difficulty === 1 ? 'selected' : '' %>>🟢 Легко (1)</option>
+                <option value="2" <%= habit.difficulty === 2 ? 'selected' : '' %>>🔵 Нижче середнього (2)</option>
+                <option value="3" <%= habit.difficulty === 3 ? 'selected' : '' %>>🟡 Середньо (3)</option>
+                <option value="4" <%= habit.difficulty === 4 ? 'selected' : '' %>>🟠 Важко (4)</option>
+                <option value="5" <%= habit.difficulty === 5 ? 'selected' : '' %>>🔴 Екстремально (5)</option>
+            </select>
+
+            <button type="submit" class="btn-save">💾 Зберегти зміни</button>
+        </form>
+
+        <a href="/" class="btn-cancel">Скасувати</a>
+
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+        <form action="/habits/<%= habit.id %>/delete" method="POST" onsubmit="return confirm('Ви впевнені, що хочете видалити цю звичку?');">
+            <button type="submit" class="btn-delete">🗑️ Видалити звичку</button>
+        </form>
+    </div>
+</body>
+</html>

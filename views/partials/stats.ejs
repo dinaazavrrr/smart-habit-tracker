@@ -1,0 +1,62 @@
+<% 
+   let scoreColor = 'red';
+   if (score >= 80) { scoreColor = 'green'; }
+   else if (score >= 50) { scoreColor = 'orange'; }
+%>
+
+<div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h3 style="margin: 0;">📊 Мій Рівень Дисципліни</h3>
+        <span style="font-size: 1.5em; font-weight: bold; color: <%= scoreColor %>;">
+            <%= Math.round(score) %>%
+        </span>
+    </div>
+    
+    <div style="background: #eee; height: 20px; border-radius: 10px; overflow: hidden;">
+        <div style="width: <%= score %>%; height: 100%; background: linear-gradient(90deg, #ff4b1f, #ff9068); transition: width 1s ease-in-out;"></div>
+    </div>
+    <p style="color: grey; font-size: 0.8em; margin-top: 8px; text-align: right;">
+        *User Story #5
+    </p>
+</div>
+
+<div class="status-board">
+    
+    <div class="badges-box">
+        <h3>🔥 Активність</h3>
+        <% if (habits.every(h => h.currentStreak === 0 && h.lastStreak === 0)) { %>
+            <p style="color: grey; font-size: 0.9em;">Почни виконувати звички!</p>
+        <% } else { %>
+            <div style="display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto;">
+                <% 
+                   const sortedHabits = habits.filter(h => h.currentStreak > 0 || h.lastStreak > 0).sort((a, b) => b.currentStreak - a.currentStreak);
+                %>
+                <% sortedHabits.forEach(function(h) { %>
+                    <div style="display: flex; justify-content: space-between; background: rgba(255,255,255,0.6); padding: 5px 10px; border-radius: 5px;">
+                        <span style="font-weight: bold; font-size: 0.9em;"><%= h.name %></span>
+                        <div>
+                            <% if (h.currentStreak > 0) { %>
+                                <span style="color: #ff4500; font-weight: bold;">🔥 <%= h.currentStreak %> дн.</span>
+                            <% } else if (h.lastStreak > 0) { %>
+                                <span style="color: grey; font-size: 0.8em; text-decoration: line-through;">🔥 <%= h.lastStreak %></span> 💔
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="tips-box">
+        <h3>💡 ШІ Поради</h3>
+        <% if (recommendations.length === 0) { %>
+            <p style="color: grey; font-size: 0.9em;">Все чудово! Система мовчить.</p>
+        <% } else { %>
+            <% recommendations.forEach(function(rec) { %>
+                <div style="background: white; padding: 10px; margin-bottom: 5px; border-left: 4px solid orange; font-size: 0.9em; border-radius: 4px;">
+                    <%= rec.message %>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</div>
